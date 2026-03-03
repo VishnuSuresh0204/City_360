@@ -1,0 +1,207 @@
+{% extends 'user/commonbase.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .feedback-section {
+        padding: 80px 0 60px;
+        min-height: 80vh;
+    }
+
+    .feedback-section h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 24px;
+    }
+
+    .feedback-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.09);
+        padding: 20px 24px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .feedback-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .feedback-body {
+        flex: 1;
+    }
+
+    .feedback-body .reviewer {
+        font-weight: 600;
+        margin: 0 0 4px;
+    }
+
+    .feedback-body .category {
+        color: #888;
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+    }
+
+    .feedback-body .text {
+        color: #333;
+        margin: 0;
+    }
+
+    .badge-mine {
+        background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+        color: #fff;
+        font-size: 0.72rem;
+        padding: 2px 10px;
+        border-radius: 20px;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+    .action-btns {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .btn-edit {
+        background: #fff;
+        border: 1.5px solid #6a82fb;
+        color: #6a82fb;
+        border-radius: 6px;
+        padding: 4px 14px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .btn-edit:hover {
+        background: #6a82fb;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .btn-del {
+        background: #fff;
+        border: 1.5px solid #fc5c7d;
+        color: #fc5c7d;
+        border-radius: 6px;
+        padding: 4px 14px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .btn-del:hover {
+        background: #fc5c7d;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #aaa;
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .alert-msg {
+        background: #e8f5e9;
+        border-left: 4px solid #43a047;
+        padding: 12px 18px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        color: #256029;
+        font-weight: 500;
+    }
+
+    .btn-add-feedback {
+        display: inline-block;
+        background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px 24px;
+        font-weight: 600;
+        text-decoration: none;
+        margin-bottom: 24px;
+    }
+
+    .btn-add-feedback:hover {
+        color: #fff;
+        opacity: 0.9;
+        text-decoration: none;
+    }
+
+    .already-text {
+        display: inline-block;
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+        font-style: italic;
+    }
+</style>
+
+<section class="feedback-section">
+    <div class="container" style="max-width: 760px;">
+        <h3><i class="fa fa-comments mr-2"></i>Feedback</h3>
+
+        {% if msg %}
+        <div class="alert-msg"><i class="fa fa-check-circle mr-2"></i>{{ msg }}</div>
+        {% endif %}
+
+        {% if msg %}
+        <div class="alert-msg"><i class="fa fa-check-circle mr-2"></i>{{ msg }}</div>
+        {% endif %}
+
+        {% if abc %}
+        {% for i in abc %}
+        <div class="feedback-card">
+            <div class="feedback-avatar">{{ i.usrid.name|first|upper }}</div>
+            <div class="feedback-body">
+                <p class="reviewer">
+                    {{ i.usrid.name }}
+                    {% if i.usrid_id == uid %}<span class="badge-mine">You</span>{% endif %}
+                </p>
+                <p class="category">{{ i.category }}</p>
+                <p class="text">{{ i.feedback }}</p>
+                {% if i.usrid_id == uid %}
+                <div class="action-btns">
+                    <a class="btn-edit" href="/edituseraddfeedback?id={{ i.id }}"><i
+                            class="fa fa-pencil mr-1"></i>Edit</a>
+                    <a class="btn-del" href="/deleteuseraddfeedback?id={{ i.id }}&worid={{ worker_id }}"
+                        onclick="return confirm('Delete your feedback?')">
+                        <i class="fa fa-trash mr-1"></i>Delete
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="empty-state">
+            <i class="fa fa-comment-o"></i>
+            <p>No feedback yet for this worker. Be the first!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

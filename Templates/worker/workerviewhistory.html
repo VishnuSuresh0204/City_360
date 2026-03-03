@@ -1,0 +1,84 @@
+{% extends 'worker/commonbase.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    #img {
+        width: 40px;
+        height: 40px;
+    }
+</style>
+
+<!-- Work History -->
+<section class="w3l-team" id="team">
+    <div class="team-block py-5">
+        <div class="container py-lg-5">
+            <div class="row justify-content-center text-center">
+                <div class="col-md-8">
+                    <div class="section-heading mb-sm-5 mb-4">
+                        <h3 class="title-style mb-2">Work History</h3>
+                    </div>
+                </div>
+            </div>
+
+            <table id="myTable" style="margin-left: 1%; margin-top: 4%;">
+                <tr class="header">
+                    <th>Name</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Category</th>
+                    <th>Wages</th>
+                    <th>Starting Date</th>
+                    <th>Ending Date</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for i in abc %}
+                <tr>
+                    <td>{{i.name}}</td>
+                    <td>{{i.usrid.name}}</td>
+                    <td>{{i.usrid.email}}</td>
+                    <td>{{i.usrid.phone}}</td>
+                    <td>{{i.category}}</td>
+                    <td>{{i.wages}}</td>
+                    <td>{{i.startingdate}}</td>
+                    <td>{{i.endingdate}}</td>
+                    <td>
+                        {% if i.endingdate < today %} <a href="/workeraddfeedback?bid={{i.id}}" class="btn btn-info"
+                            style="margin-top: 7%;">Add Feedback</a>
+                            {% else %}
+                            <span class="badge bg-warning text-dark">Work in Progress</span>
+                            <br>
+                            <small class="text-muted">Available after {{i.endingdate}}</small>
+                            {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

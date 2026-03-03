@@ -1,0 +1,51 @@
+{% extends 'admin/commonbase.html' %}
+{% load static %}
+{% block content %}
+<style>
+  table {
+    border-collapse: collapse;
+    width: 50%;
+  }
+
+  th,
+  td {
+    text-align: center;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #d6eeee;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+
+  #img {
+    width: 40px;
+    height: 40px;
+  }
+</style>
+
+<div class="col-md-8">
+  <div class="section-heading mb-sm-5 mb-4">
+    <h3 class="title-style mb-2" style="text-align: center; margin-right: -40%;">Worker Feedback</h3>
+  </div>
+</div>
+
+<table id="myTable" style="margin-left: 10%; margin-top: 5%; width: 80%;">
+  <tr class="header">
+    <th>Worker</th>
+    <th>User Name</th>
+    <th>Feedback</th>
+  </tr>
+  {% for i in abc %}
+  <tr>
+    <td>{{ i.worid.name }}</td>
+    <td>{{ i.usrid.name }}</td>
+    <td>{{ i.feedback }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
