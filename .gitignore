@@ -1,0 +1,12 @@
+*.pyc
+*~
+__pycache__/
+db.sqlite3
+myenv/
+.env
+.vscode/
+.idea/
+*.log
+media/
+static/assets/image/*
+!static/assets/image/.gitkeep
