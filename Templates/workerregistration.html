@@ -1,0 +1,169 @@
+{% extends 'commonbase.html' %}
+{% load static %}
+{% block content %}
+
+
+<style>
+    /* Image Upload */
+
+    .image-upload>input {
+        display: none;
+    }
+
+    #img {
+        cursor: pointer;
+        height: 150px;
+        width: 150px;
+        padding: 10px;
+        border-radius: 100px;
+    }
+
+    article,
+    aside,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+        display: block;
+    }
+
+    /* Image upload */
+</style>
+
+<!-- Registration -->
+<section class="w3l-contact pb-5" id="contact">
+    <div class="container pb-md-5 pb-4">
+        <div class="row contact-block">
+            <div class="col-lg-7 contact-right mt-5">
+                <h3 class="title-style mb-4 pb-2">Workers Registration</h3>
+
+                <form method="post" class="signin-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="image-upload text-center" style="margin-bottom:30px; margin-right: 500px;">
+                        <label for="file-input">
+                            <img id="img" src="/static/assets/image/up-arrows.png" alt="Upload Image"
+                                style="margin: auto; margin-right: 100%;" />
+                        </label>
+
+                        <p
+                            style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; margin-top: -2%; margin-left: -4%;">
+                            Upload Image</p>
+
+                        <input id="file-input" onchange="readURL(this)" name="image" type="file" />
+                    </div>
+                    <div class="input-grids">
+                        <div class="form-group mb-3">
+                            <label for="w3lName" class="form-label">Full Name</label>
+                            <input type="text" name="Name" id="w3lName" placeholder="Your Name*" class="contact-input"
+                                required="" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="w3lSender" class="form-label">Email Address</label>
+                            <input type="email" name="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                id="w3lSender" placeholder="Your Email*" class="contact-input" required="" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="w3lPassword" class="form-label">Password</label>
+                            <input type="password" name="Password"
+                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}" id="w3lPassword"
+                                placeholder="Password*" class="contact-input" required="" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="w3lNumber" class="form-label">Phone Number</label>
+                            <input type="text" name="Number" pattern="[9876][0-9]{9}" maxlength="10" minlength="10"
+                                id="w3lNumber" placeholder="Phone Number*" class="contact-input" required="" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="w3lExperience" class="form-label">Experience (Years)</label>
+                            <input type="number" name="Experience" id="w3lExperience" placeholder="Experience*"
+                                class="contact-input" required="" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="w3lLocation" class="form-label">Location</label>
+                            <input type="text" name="Location" id="w3lLocation" placeholder="Location*"
+                                class="contact-input" required="" />
+                        </div>
+
+                        <div class="form-group mb-3" id="gender-selection">
+                            <label for="w3lGender" class="form-label">Gender</label>
+                            <select name="Gender" id="w3lGender" style="height: 50px;padding: 5px;
+                            width: 100%;
+                            color: var(--heading-color);
+                            background: var(--bg-grey);
+                            font-size: 15px;
+                            padding: 14px;
+                            border: 1px solid var(--border-color-light);
+                            outline: none;
+                            margin-bottom: 16px;
+                            border-radius: 8px;">
+                                <option value="" selected disabled>Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3" id="category-selection">
+                            <label for="w3lCategory" class="form-label">Category</label>
+                            <select name="Category" id="w3lCategory" style="height: 50px;padding: 5px;
+                            width: 100%;
+                            color: var(--heading-color);
+                            background: var(--bg-grey);
+                            font-size: 15px;
+                            padding: 14px;
+                            border: 1px solid var(--border-color-light);
+                            outline: none;
+                            margin-bottom: 16px;
+                            border-radius: 8px;">
+                                <option value="" selected disabled>Category</option>
+                                {% for i in cat %}
+                                <option value="{{i.category}}">{{i.category}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="w3lWages" class="form-label">Wages</label>
+                            <input type="number" name="Wages" id="w3lWages" placeholder="Wages*" class="contact-input"
+                                required="" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="w3lMessage" class="form-label">Address</label>
+                        <textarea name="Address" id="w3lMessage" placeholder="Type your address here*"
+                            required=""></textarea>
+                    </div>
+                    <button class="btn btn-style mt-sm-3" style="margin-left: 80%;">Submit</button>
+                </form>
+
+            </div>
+            <div class="col-lg-5 mt-lg-0 mt-5 pl-xl-5 pl-lg-4">
+                <div class="map-iframe" style="margin-top: 90%; width: 180%; margin-left: 4%;">
+                    <img class="img-fluid" src="{% static 'assets/images/construction-worker.png' %}" alt=" ">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //contact -->
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img").attr("src", e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'user/commonbase.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    .chat-list-section {
+        padding: 80px 0 60px;
+        min-height: 80vh;
+    }
+
+    .chat-list-section h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .worker-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.10);
+        padding: 20px 25px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 18px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .worker-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .worker-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #e9ecef;
+    }
+
+    .worker-avatar-placeholder {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+    .worker-info h5 {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 600;
+    }
+
+    .worker-info small {
+        color: #888;
+    }
+
+    .chat-btn {
+        margin-left: auto;
+        background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .chat-btn:hover {
+        color: #fff;
+        opacity: 0.9;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #aaa;
+    }
+
+    .empty-state i {
+        font-size: 3.5rem;
+        margin-bottom: 16px;
+        display: block;
+    }
+</style>
+
+<section class="chat-list-section">
+    <div class="container">
+        <h2><i class="fa fa-comments mr-2"></i>Chat with Workers</h2>
+        {% if workers %}
+        {% for worker in workers %}
+        <a class="worker-card" href="/user_chat?worker_id={{ worker.id }}">
+            {% if worker.image %}
+            <img class="worker-avatar" src="/static/assets/image/{{ worker.image }}" alt="{{ worker.name }}">
+            {% else %}
+            <div class="worker-avatar-placeholder">{{ worker.name|first|upper }}</div>
+            {% endif %}
+            <div class="worker-info">
+                <h5>{{ worker.name }}</h5>
+                <small>{{ worker.category }} &mdash; {{ worker.location }}</small>
+            </div>
+            <span class="chat-btn"><i class="fa fa-comment"></i> Open Chat</span>
+        </a>
+        {% endfor %}
+        {% else %}
+        <div class="empty-state">
+            <i class="fa fa-comment-o"></i>
+            <p>No approved bookings yet. Chat becomes available once a worker approves your booking.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
